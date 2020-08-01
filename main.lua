@@ -6,8 +6,8 @@ function love.load()
     window_height = love.graphics.getHeight()
 
     ball_speed = 40
-    ball_x = 0
-    ball_y = 0
+    ball_x = window_width / 2
+    ball_y = window_height / 2
 
     player_width = 100
     player_x = love.mouse.getX() - player_width / 2
@@ -16,7 +16,6 @@ end
 
 function love.draw()
     love.graphics.circle("fill", ball_x, ball_y, 5)
-
     love.graphics.rectangle("fill", player_x, player_y, 100, 20)
 end
 
