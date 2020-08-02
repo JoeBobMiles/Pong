@@ -37,10 +37,22 @@ function Player:new(player, x, y)
     self.width = 100
     self.height= 20
 
-    self.x = (x or 0) - self.width/2
+    self.x = x or 0
     self.y = y or 0
 
     return player
+end
+
+function Player:boundingBox()
+    box = BoundingBox:new()
+
+    box.x = self.x + self.width/2
+    box.y = self.y
+
+    box.width = self.width
+    box.height = self.height
+
+    return box
 end
 
 -- Ball class
@@ -82,7 +94,7 @@ function love.load()
 
     player = Player:new(
         nil,
-        love.mouse.getX(),
+        0,
         window.height - 40)
 end
 
