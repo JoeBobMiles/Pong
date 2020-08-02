@@ -17,6 +17,11 @@ function BoundingBox:new(box, x, y, width, height)
     self.width = width or 0
     self.height = height or 0
 
+    self.top = self.y
+    self.bottom = self.y + self.height
+    self.left = self.x
+    self.right = self.x + self.width
+
     return self
 end
 
