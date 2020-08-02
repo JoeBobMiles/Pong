@@ -142,11 +142,31 @@ function love.draw()
         love.graphics.setColor(1, 0, 0)
     end
 
-    -- Draw circle
+    -- Draw ball
+    love.graphics.setColor(1, 1, 1)
     love.graphics.circle("fill", ball.x, ball.y, ball.radius)
+    -- Draw ball's bounding box
+    ballBoundingBox = ball:boundingBox()
+    love.graphics.setColor(1, 0, 0)
+    love.graphics.rectangle(
+        "line",
+        ballBoundingBox.x,
+        ballBoundingBox.y,
+        ballBoundingBox.width,
+        ballBoundingBox.height)
 
     -- Draw player
+    love.graphics.setColor(1, 1, 1)
     love.graphics.rectangle("fill", player.x, player.y, player.width, player.height)
+    -- Draw player's bounding box
+    playerBoundingBox = player:boundingBox()
+    love.graphics.setColor(1, 0, 0)
+    love.graphics.rectangle(
+        "line",
+        playerBoundingBox.x,
+        playerBoundingBox.y,
+        playerBoundingBox.width,
+        playerBoundingBox.height)
 end
 
 function love.update(dt)
