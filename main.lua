@@ -66,7 +66,7 @@ end
 function Player:boundingBox()
     box = BoundingBox:new()
 
-    box.x = self.x + self.width/2
+    box.x = self.x
     box.y = self.y
 
     box.width = self.width
