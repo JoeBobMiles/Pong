@@ -132,7 +132,20 @@ function love.load()
 end
 
 function love.draw()
+    if ball:boundingBox():isCollidingWith(player:boundingBox())
+    then
+        love.graphics.print(
+            "COLLISION!",
+            window.height / 2,
+            window.width / 2)
+
+        love.graphics.setColor(1, 0, 0)
+    end
+
+    -- Draw circle
     love.graphics.circle("fill", ball.x, ball.y, ball.radius)
+
+    -- Draw player
     love.graphics.rectangle("fill", player.x, player.y, player.width, player.height)
 end
 
