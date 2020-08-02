@@ -77,6 +77,19 @@ function Ball:new(ball, x, y, radius)
     return ball
 end
 
+function Ball:boundingBox()
+    box = BoundingBox:new()
+
+    -- The ball's x and y are the center of the circle drawn by love. We have to
+    -- translate that position to the top-left corner for BoundingBox.
+    box.x = self.x - self.radius
+    box.y = self.y - self.radius
+    box.height = self.radius * 2
+    box.width = self.radius * 2
+
+    return box
+end
+
 -- Game code
 function love.load()
     love.window.setTitle("🏓PONG")
