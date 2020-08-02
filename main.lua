@@ -4,6 +4,10 @@ BoundingBox = {
     y = 0,
     width = 0,
     height = 0,
+    top = 0,
+    bottom = 0,
+    left = 0,
+    right = 0,
 }
 
 function BoundingBox:new(box, x, y, width, height)
@@ -23,6 +27,17 @@ function BoundingBox:new(box, x, y, width, height)
     self.right = self.x + self.width
 
     return self
+end
+
+function BoundingBox:isCollidingWith(box)
+    return
+        -- Check horizontal overlap
+        ((self.left < box.right and box.left < self.left)
+        or (self.right < box.right and box.left < self.right))
+        and
+        -- Check vertical overlap
+        ((self.top < box.bottom and box.top < self.top)
+        or (self.bottom < box.bottom and box.top < self.bottom))
 end
 
 -- Player class
