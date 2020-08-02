@@ -1,3 +1,25 @@
+-- BoundingBox class
+BoundingBox = {
+    x = 0,
+    y = 0,
+    width = 0,
+    height = 0,
+}
+
+function BoundingBox:new(box, x, y, width, height)
+    box = box or {}
+
+    setmetatable(box, self)
+    self.__index = self
+
+    self.x = x or 0
+    self.y = y or 0
+    self.width = width or 0
+    self.height = height or 0
+
+    return self
+end
+
 -- Player class
 Player = {
     width = 100,
