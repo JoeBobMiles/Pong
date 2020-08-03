@@ -137,11 +137,6 @@ function love.draw()
 
     if ball:boundingBox():isCollidingWith(player:boundingBox())
     then
-        love.graphics.print(
-            "COLLISION!",
-            window.width / 2,
-            window.height / 2)
-
         love.graphics.setColor(1, 0, 0)
     end
 
