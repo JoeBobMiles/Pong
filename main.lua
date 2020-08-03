@@ -64,15 +64,12 @@ function Player:new(player, x, y)
 end
 
 function Player:boundingBox()
-    box = BoundingBox:new()
-
-    box.x = self.x
-    box.y = self.y
-
-    box.width = self.width
-    box.height = self.height
-
-    return box
+    return BoundingBox:new(
+        nil,
+        self.x,
+        self.y,
+        self.width,
+        self.height)
 end
 
 -- Ball class
@@ -98,16 +95,15 @@ function Ball:new(ball, x, y, radius)
 end
 
 function Ball:boundingBox()
-    box = BoundingBox:new()
-
-    -- The ball's x and y are the center of the circle drawn by love. We have to
-    -- translate that position to the top-left corner for BoundingBox.
-    box.x = self.x - self.radius
-    box.y = self.y - self.radius
-    box.height = self.radius * 2
-    box.width = self.radius * 2
-
-    return box
+    return BoundingBox:new(
+        nil,
+        -- The ball's x and y are the center of the circle drawn by love. We
+        -- have to translate that position to the top-left corner for
+        -- BoundingBox.
+        self.x - self.radius,
+        self.y - self.radius,
+        self.radius * 2,
+        self.radius * 2)
 end
 
 -- Game code
