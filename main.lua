@@ -182,6 +182,18 @@ function love.draw()
             playerBoundingBox.left,
             playerBoundingBox.right),
         0, 50)
+
+    love.graphics.print(
+        string.format(
+            "Ball colliding with player?\t%s",
+            tostring(ballBoundingBox:isCollidingWith(playerBoundingBox))),
+        0, 100)
+
+    love.graphics.print(
+        string.format(
+            "Player colliding with ball?\t%s",
+            tostring(playerBoundingBox:isCollidingWith(ballBoundingBox))),
+        0, 120)
 end
 
 function love.update(dt)
