@@ -125,6 +125,8 @@ function love.load()
         nil,
         0,
         window.height - 40)
+
+    isPaused = false
 end
 
 function love.draw()
@@ -183,8 +185,20 @@ function love.draw()
 end
 
 function love.update(dt)
+    if isPaused then return end
+
     ball.x = ball.x + (ball.speed * dt)
     ball.y = ball.y + (ball.speed * dt)
 
     player.x = love.mouse.getX() - player.width / 2
+end
+
+function love.keyreleased(key, scancode)
+    if key == "escape"
+    then
+        love.event.quit()
+    elseif key == "space"
+    then
+        isPaused = not isPaused
+    end
 end
