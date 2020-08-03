@@ -155,6 +155,16 @@ function love.draw()
         ballBoundingBox.width,
         ballBoundingBox.height)
 
+    love.graphics.setColor(1, 1, 1, 0.5)
+    love.graphics.print(
+        string.format(
+            "Ball bounding box\n\tTop: %d\tBottom: %d\n\tLeft: %d\tRight %d",
+            ballBoundingBox.top,
+            ballBoundingBox.bottom,
+            ballBoundingBox.left,
+            ballBoundingBox.right),
+        0, 0)
+
     -- Draw player
     love.graphics.setColor(1, 1, 1)
     love.graphics.rectangle("fill", player.x, player.y, player.width, player.height)
@@ -167,6 +177,16 @@ function love.draw()
         playerBoundingBox.y,
         playerBoundingBox.width,
         playerBoundingBox.height)
+
+    love.graphics.setColor(1, 1, 1, 0.5)
+    love.graphics.print(
+        string.format(
+            "Player bounding box\n\tTop: %d\tBottom: %d\n\tLeft: %d\tRight %d",
+            playerBoundingBox.top,
+            playerBoundingBox.bottom,
+            playerBoundingBox.left,
+            playerBoundingBox.right),
+        0, 50)
 end
 
 function love.update(dt)
