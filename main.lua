@@ -136,8 +136,8 @@ function love.draw()
     then
         love.graphics.print(
             "COLLISION!",
-            window.height / 2,
-            window.width / 2)
+            window.width / 2,
+            window.height / 2)
 
         love.graphics.setColor(1, 0, 0)
     end
