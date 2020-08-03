@@ -132,6 +132,9 @@ function love.load()
 end
 
 function love.draw()
+    -- Reset draw color
+    love.graphics.setColor(1, 1, 1)
+
     if ball:boundingBox():isCollidingWith(player:boundingBox())
     then
         love.graphics.print(
@@ -143,7 +146,6 @@ function love.draw()
     end
 
     -- Draw ball
-    love.graphics.setColor(1, 1, 1)
     love.graphics.circle("fill", ball.x, ball.y, ball.radius)
     -- Draw ball's bounding box
     ballBoundingBox = ball:boundingBox()
