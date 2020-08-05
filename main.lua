@@ -32,12 +32,12 @@ end
 function BoundingBox:isCollidingWith(box)
     return
         -- Check horizontal overlap
-        ((self.left < box.right and box.left < self.left)
-        or (self.right < box.right and box.left < self.right))
+        ((self.left <= box.left and box.left <= self.right)
+            or (box.left <= self.left and self.left <= box.right))
         and
         -- Check vertical overlap
-        ((self.top < box.bottom and box.top < self.top)
-        or (self.bottom < box.bottom and box.top < self.bottom))
+        ((self.top <= box.top and box.top <= self.bottom)
+            or (box.top <= self.top and self.top <= box.bottom))
 end
 
 -- Player class
