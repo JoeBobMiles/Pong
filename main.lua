@@ -130,12 +130,11 @@ function love.load()
 end
 
 function love.draw()
-    -- Reset draw color
-    love.graphics.setColor(1, 1, 1)
-
     if ball:boundingBox():isCollidingWith(player:boundingBox())
     then
         love.graphics.setColor(1, 0, 0)
+    else
+        love.graphics.setColor(1, 1, 1)
     end
 
     -- Draw ball
@@ -150,15 +149,6 @@ function love.draw()
         ballBoundingBox.width,
         ballBoundingBox.height)
 
-    love.graphics.setColor(1, 1, 1, 0.5)
-    love.graphics.print(
-        string.format(
-            "Ball bounding box\n\tTop: %d\tBottom: %d\n\tLeft: %d\tRight %d",
-            ballBoundingBox.top,
-            ballBoundingBox.bottom,
-            ballBoundingBox.left,
-            ballBoundingBox.right),
-        0, 0)
 
     -- Draw player
     love.graphics.setColor(1, 1, 1)
@@ -172,28 +162,6 @@ function love.draw()
         playerBoundingBox.y,
         playerBoundingBox.width,
         playerBoundingBox.height)
-
-    love.graphics.setColor(1, 1, 1, 0.5)
-    love.graphics.print(
-        string.format(
-            "Player bounding box\n\tTop: %d\tBottom: %d\n\tLeft: %d\tRight %d",
-            playerBoundingBox.top,
-            playerBoundingBox.bottom,
-            playerBoundingBox.left,
-            playerBoundingBox.right),
-        0, 50)
-
-    love.graphics.print(
-        string.format(
-            "Ball colliding with player?\t%s",
-            tostring(ballBoundingBox:isCollidingWith(playerBoundingBox))),
-        0, 100)
-
-    love.graphics.print(
-        string.format(
-            "Player colliding with ball?\t%s",
-            tostring(playerBoundingBox:isCollidingWith(ballBoundingBox))),
-        0, 120)
 end
 
 function love.update(dt)
