@@ -16,17 +16,17 @@ function BoundingBox:new(box, x, y, width, height)
     setmetatable(box, self)
     self.__index = self
 
-    self.x = x or 0
-    self.y = y or 0
-    self.width = width or 0
-    self.height = height or 0
+    box.x = x or 0
+    box.y = y or 0
+    box.width = width or 0
+    box.height = height or 0
 
-    self.top = self.y
-    self.bottom = self.y + self.height
-    self.left = self.x
-    self.right = self.x + self.width
+    box.top = box.y
+    box.bottom = box.y + box.height
+    box.left = box.x
+    box.right = box.x + box.width
 
-    return self
+    return box
 end
 
 function BoundingBox:isCollidingWith(box)
