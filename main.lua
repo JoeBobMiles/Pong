@@ -35,6 +35,20 @@ function BoundingBox:isCollidingWith(box)
             or (box.top <= self.top and self.top <= box.bottom))
 end
 
+Vector2 = {
+    x = 0,
+    y = 0,
+}
+
+function Vector2:new(vector)
+    vector = vector or {}
+
+    setmetatable(vector, self)
+    self.__index = self
+
+    return vector
+end
+
 -- Player class
 Player = {
     width = 100,
