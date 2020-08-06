@@ -204,12 +204,15 @@ function love.update(dt)
 
     if ballBoundingBox:isCollidingWith(playerBoundingBox)
     then
-        if ballBoundingBox:isHorizontallyCollidingWith(playerBoundingBox)
+        local collisionVector =
+            ballBoundingBox:collisionVectorWith(playerBoundingBox)
+
+        if collisionVector.x ~= 0
         then
             ball.velocity.x = -ball.velocity.x
         end
 
-        if ballBoundingBox:isVerticallyCollidingWith(playerBoundingBox)
+        if collisionVector.y ~= 0
         then
             ball.velocity.y = -ball.velocity.y
         end
