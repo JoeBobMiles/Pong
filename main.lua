@@ -83,8 +83,11 @@ Ball = {
         x = 0,
         y = 0,
     },
+    velocity = Vector2:new{
+        x = 100,
+        y = 100,
+    },
     radius = 5,
-    speed = 40,
 }
 
 function Ball:new(ball)
@@ -182,14 +185,15 @@ end
 function love.update(dt)
     if isPaused then return end
 
-    ball.position.x = ball.position.x + (ball.speed * dt)
-    ball.position.y = ball.position.y + (ball.speed * dt)
+    ball.position.x = ball.position.x + (ball.velocity.x * dt)
+    ball.position.y = ball.position.y + (ball.velocity.y * dt)
 
     player.position.x = love.mouse.getX() - player.width / 2
 
     if ball:boundingBox():isCollidingWith(player:boundingBox())
     then
-        ball.speed = -ball.speed
+        ball.velocity.x = -ball.velocity.x
+        ball.velocity.y = -ball.velocity.y
     end
 end
 
