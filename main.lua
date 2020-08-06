@@ -152,11 +152,26 @@ function love.draw()
 
     if ballBoundingBox:isCollidingWith(playerBoundingBox)
     then
-        love.graphics.setColor(1, 0, 0)
+        local collisionVector =
+            ballBoundingBox:collisionVectorWith(playerBoundingBox)
+
+        love.graphics.setColor(1,1,1,0.5)
+        love.graphics.print(
+            string.format(
+                "Collision vector: [%d, %d]",
+                collisionVector.x,
+                collisionVector.y),
+            0, 0)
+
+        isPaused = true
     else
-        love.graphics.setColor(1, 1, 1)
+        love.graphics.setColor(1,1,1,0.5)
+        love.graphics.print(
+            "Collision vector: nil",
+            0, 0)
     end
 
+    love.graphics.setColor(1, 1, 1)
     -- Draw ball
     love.graphics.circle(
         "fill",
