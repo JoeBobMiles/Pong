@@ -43,17 +43,11 @@ Player = {
     y = 0,
 }
 
-function Player:new(player, x, y)
+function Player:new(player)
     player = player or {}
 
     setmetatable(player, self)
     self.__index = self
-
-    self.width = 100
-    self.height= 20
-
-    self.x = x or 0
-    self.y = y or 0
 
     return player
 end
@@ -111,10 +105,10 @@ function love.load()
         radius = 5,
     }
 
-    player = Player:new(
-        nil,
-        0,
-        window.height - 40)
+    player = Player:new{
+        x = 0,
+        y = window.height - 40,
+    }
 
     isPaused = false
 end
