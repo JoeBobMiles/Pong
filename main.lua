@@ -35,6 +35,7 @@ function BoundingBox:isCollidingWith(box)
             or (box.top <= self.top and self.top <= box.bottom))
 end
 
+-- Vector2 class
 Vector2 = {
     x = 0,
     y = 0,
