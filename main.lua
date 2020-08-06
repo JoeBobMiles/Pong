@@ -79,8 +79,10 @@ end
 
 -- Ball class
 Ball = {
-    x = 0,
-    y = 0,
+    position = Vector2:new{
+        x = 0,
+        y = 0,
+    },
     radius = 5,
     speed = 40,
 }
@@ -99,8 +101,8 @@ function Ball:boundingBox()
         -- The ball's x and y are the center of the circle drawn by love. We
         -- have to translate that position to the top-left corner for
         -- BoundingBox.
-        x = self.x - self.radius,
-        y = self.y - self.radius,
+        x = self.position.x - self.radius,
+        y = self.position.y - self.radius,
         width = self.radius * 2,
         height = self.radius * 2,
     }
@@ -116,8 +118,10 @@ function love.load()
     }
 
     ball = Ball:new{
-        x = window.width/2,
-        y = window.height/2,
+        position = Vector2:new{
+            x = window.width/2,
+            y = window.height/2,
+        },
         radius = 5,
     }
 
@@ -140,7 +144,11 @@ function love.draw()
     end
 
     -- Draw ball
-    love.graphics.circle("fill", ball.x, ball.y, ball.radius)
+    love.graphics.circle(
+        "fill",
+        ball.position.x,
+        ball.position.y,
+        ball.radius)
     -- Draw ball's bounding box
     ballBoundingBox = ball:boundingBox()
     love.graphics.setColor(1, 0, 0)
@@ -174,8 +182,8 @@ end
 function love.update(dt)
     if isPaused then return end
 
-    ball.x = ball.x + (ball.speed * dt)
-    ball.y = ball.y + (ball.speed * dt)
+    ball.position.x = ball.position.x + (ball.speed * dt)
+    ball.position.y = ball.position.y + (ball.speed * dt)
 
     player.position.x = love.mouse.getX() - player.width / 2
 
