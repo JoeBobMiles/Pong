@@ -24,15 +24,22 @@ function BoundingBox:new(box)
     return box
 end
 
+function BoundingBox:isHorizontallyCollidingWith(box)
+    return 
+        ((self.left <= box.left and box.left <= self.right)
+        or (box.left <= self.left and self.left <= box.right))
+end
+
+function BoundingBox:isVerticallyCollidingWith(box)
+    return
+        ((self.top <= box.top and box.top <= self.bottom)
+        or (box.top <= self.top and self.top <= box.bottom))
+end
+
 function BoundingBox:isCollidingWith(box)
     return
-        -- Check horizontal overlap
-        ((self.left <= box.left and box.left <= self.right)
-            or (box.left <= self.left and self.left <= box.right))
-        and
-        -- Check vertical overlap
-        ((self.top <= box.top and box.top <= self.bottom)
-            or (box.top <= self.top and self.top <= box.bottom))
+        self:isHorizontallyCollidingWith(box)
+        and self:isVerticallyCollidingWith(box)
 end
 
 -- Vector2 class
@@ -192,10 +199,20 @@ function love.update(dt)
 
     player.position.x = love.mouse.getX() - player.width / 2
 
-    if ball:boundingBox():isCollidingWith(player:boundingBox())
+    local playerBoundingBox = player:boundingBox()
+    local ballBoundingBox = ball:boundingBox()
+
+    if ballBoundingBox:isCollidingWith(playerBoundingBox)
     then
-        ball.velocity.x = -ball.velocity.x
-        ball.velocity.y = -ball.velocity.y
+        if ballBoundingBox:isHorizontallyCollidingWith(playerBoundingBox)
+        then
+            ball.velocity.x = -ball.velocity.x
+        end
+
+        if ballBoundingBox:isVerticallyCollidingWith(playerBoundingBox)
+        then
+            ball.velocity.y = -ball.velocity.y
+        end
     end
 end
 
