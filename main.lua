@@ -10,16 +10,11 @@ BoundingBox = {
     right = 0,
 }
 
-function BoundingBox:new(box, x, y, width, height)
+function BoundingBox:new(box)
     box = box or {}
 
     setmetatable(box, self)
     self.__index = self
-
-    box.x = x or 0
-    box.y = y or 0
-    box.width = width or 0
-    box.height = height or 0
 
     box.top = box.y
     box.bottom = box.y + box.height
@@ -64,12 +59,12 @@ function Player:new(player, x, y)
 end
 
 function Player:boundingBox()
-    return BoundingBox:new(
-        nil,
-        self.x,
-        self.y,
-        self.width,
-        self.height)
+    return BoundingBox:new{
+        x = self.x,
+        y = self.y,
+        width = self.width,
+        height = self.height,
+    }
 end
 
 -- Ball class
@@ -95,15 +90,15 @@ function Ball:new(ball, x, y, radius)
 end
 
 function Ball:boundingBox()
-    return BoundingBox:new(
-        nil,
+    return BoundingBox:new{
         -- The ball's x and y are the center of the circle drawn by love. We
         -- have to translate that position to the top-left corner for
         -- BoundingBox.
-        self.x - self.radius,
-        self.y - self.radius,
-        self.radius * 2,
-        self.radius * 2)
+        x = self.x - self.radius,
+        y = self.y - self.radius,
+        width = self.radius * 2,
+        height = self.radius * 2,
+    }
 end
 
 -- Game code
