@@ -140,7 +140,10 @@ function love.load()
 end
 
 function love.draw()
-    if ball:boundingBox():isCollidingWith(player:boundingBox())
+    local playerBoundingBox = player:boundingBox()
+    local ballBoundingBox = ball:boundingBox()
+
+    if ballBoundingBox:isCollidingWith(playerBoundingBox)
     then
         love.graphics.setColor(1, 0, 0)
     else
@@ -154,7 +157,6 @@ function love.draw()
         ball.position.y,
         ball.radius)
     -- Draw ball's bounding box
-    ballBoundingBox = ball:boundingBox()
     love.graphics.setColor(1, 0, 0)
     love.graphics.rectangle(
         "line",
@@ -173,7 +175,6 @@ function love.draw()
         player.width,
         player.height)
     -- Draw player's bounding box
-    playerBoundingBox = player:boundingBox()
     love.graphics.setColor(1, 0, 0)
     love.graphics.rectangle(
         "line",
