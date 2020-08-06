@@ -51,10 +51,12 @@ end
 
 -- Player class
 Player = {
+    position = Vector2:new{
+        x = 0,
+        y = 0
+    },
     width = 100,
     height = 20,
-    x = 0,
-    y = 0,
 }
 
 function Player:new(player)
@@ -68,8 +70,8 @@ end
 
 function Player:boundingBox()
     return BoundingBox:new{
-        x = self.x,
-        y = self.y,
+        x = self.position.x,
+        y = self.position.y,
         width = self.width,
         height = self.height,
     }
@@ -120,8 +122,10 @@ function love.load()
     }
 
     player = Player:new{
-        x = 0,
-        y = window.height - 40,
+        position = Vector2:new{
+            x = 0,
+            y = window.height - 40,
+        }
     }
 
     isPaused = false
@@ -150,7 +154,12 @@ function love.draw()
 
     -- Draw player
     love.graphics.setColor(1, 1, 1)
-    love.graphics.rectangle("fill", player.x, player.y, player.width, player.height)
+    love.graphics.rectangle(
+        "fill",
+        player.position.x,
+        player.position.y,
+        player.width,
+        player.height)
     -- Draw player's bounding box
     playerBoundingBox = player:boundingBox()
     love.graphics.setColor(1, 0, 0)
@@ -168,7 +177,7 @@ function love.update(dt)
     ball.x = ball.x + (ball.speed * dt)
     ball.y = ball.y + (ball.speed * dt)
 
-    player.x = love.mouse.getX() - player.width / 2
+    player.position.x = love.mouse.getX() - player.width / 2
 
     if ball:boundingBox():isCollidingWith(player:boundingBox())
     then
