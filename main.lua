@@ -76,6 +76,10 @@ function Vector2:new(vector)
     return vector
 end
 
+function Vector2:magnitude()
+    return math.sqrt(self.x^2 + self.y^2)
+end
+
 -- Player class
 Player = {
     position = Vector2:new{
