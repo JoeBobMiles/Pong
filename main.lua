@@ -164,11 +164,6 @@ function love.draw()
             0, 0)
 
         isPaused = true
-    else
-        love.graphics.setColor(1,1,1,0.5)
-        love.graphics.print(
-            "Collision vector: nil",
-            0, 0)
     end
 
     love.graphics.setColor(1, 1, 1)
