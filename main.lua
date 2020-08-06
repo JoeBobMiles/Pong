@@ -155,6 +155,11 @@ function love.update(dt)
     ball.y = ball.y + (ball.speed * dt)
 
     player.x = love.mouse.getX() - player.width / 2
+
+    if ball:boundingBox():isCollidingWith(player:boundingBox())
+    then
+        ball.speed = -ball.speed
+    end
 end
 
 function love.keyreleased(key, scancode)
