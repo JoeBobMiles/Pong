@@ -80,6 +80,15 @@ function Vector2:magnitude()
     return math.sqrt(self.x^2 + self.y^2)
 end
 
+function Vector2:normalize()
+    local magnitude = self:magnitude()
+
+    return Vector2:new{
+        x = self.x / magnitude,
+        y = self.y / magnitude,
+    }
+end
+
 -- Player class
 Player = {
     position = Vector2:new{
