@@ -75,16 +75,11 @@ Ball = {
     speed = 40,
 }
 
-function Ball:new(ball, x, y, radius)
+function Ball:new(ball)
     ball = ball or {}
 
     setmetatable(ball, self)
     self.__index = self
-
-    self.x = x or 0
-    self.y = y or 0
-    self.radius = radius or 5
-    self.speed = 40
 
     return ball
 end
@@ -110,11 +105,11 @@ function love.load()
         height = love.graphics.getHeight(),
     }
 
-    ball = Ball:new(
-        nil,
-        window.width/2,
-        window.height/2,
-        5)
+    ball = Ball:new{
+        x = window.width/2,
+        y = window.height/2,
+        radius = 5,
+    }
 
     player = Player:new(
         nil,
