@@ -42,6 +42,25 @@ function BoundingBox:isCollidingWith(box)
         and self:isVerticallyCollidingWith(box)
 end
 
+function BoundingBox:collisionVectorWith(box)
+    if not self:isCollidingWith(box) then return nil end
+
+    local selfCenter = Vector2:new{
+        x = (self.left + self.right) / 2,
+        y = (self.top + self.bottom) / 2,
+    }
+
+    local boxCenter = Vector2:new{
+        x = (box.left + box.right) / 2,
+        y = (box.top + box.bottom) / 2,
+    }
+
+    return Vector2:new{
+        x = boxCenter.x - selfCenter.x,
+        y = boxCenter.y - selfCenter.y,
+    }
+end
+
 -- Vector2 class
 Vector2 = {
     x = 0,
@@ -150,22 +169,6 @@ function love.draw()
     local playerBoundingBox = player:boundingBox()
     local ballBoundingBox = ball:boundingBox()
 
-    if ballBoundingBox:isCollidingWith(playerBoundingBox)
-    then
-        local collisionVector =
-            ballBoundingBox:collisionVectorWith(playerBoundingBox)
-
-        love.graphics.setColor(1,1,1,0.5)
-        love.graphics.print(
-            string.format(
-                "Collision vector: [%d, %d]",
-                collisionVector.x,
-                collisionVector.y),
-            0, 0)
-
-        isPaused = true
-    end
-
     love.graphics.setColor(1, 1, 1)
     -- Draw ball
     love.graphics.circle(
@@ -199,6 +202,29 @@ function love.draw()
         playerBoundingBox.y,
         playerBoundingBox.width,
         playerBoundingBox.height)
+
+    if ballBoundingBox:isCollidingWith(playerBoundingBox)
+    then
+        local collisionVector =
+            ballBoundingBox:collisionVectorWith(playerBoundingBox)
+
+        love.graphics.setColor(1,1,1,0.5)
+        love.graphics.print(
+            string.format(
+                "Collision vector: [%d, %d]",
+                collisionVector.x,
+                collisionVector.y),
+            0, 0)
+
+        love.graphics.setColor(0,1,0)
+        love.graphics.line(
+            ball.position.x,
+            ball.position.y,
+            ball.position.x + collisionVector.x,
+            ball.position.y + collisionVector.y)
+
+        isPaused = true
+    end
 end
 
 function love.update(dt)
