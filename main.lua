@@ -219,7 +219,10 @@ function love.draw()
     if ballBoundingBox:isCollidingWith(playerBoundingBox)
     then
         local collisionVector =
-            ballBoundingBox:collisionVectorWith(playerBoundingBox)
+            ballBoundingBox:collisionVectorWith(playerBoundingBox):normalize()
+
+        collisionVector.x = collisionVector.x * 20
+        collisionVector.y = collisionVector.y * 20
 
         love.graphics.setColor(1,1,1,0.5)
         love.graphics.print(
