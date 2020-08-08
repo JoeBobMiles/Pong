@@ -51,29 +51,9 @@ end
 function love.update(dt)
     if isPaused then return end
 
-    ball.position.x = ball.position.x + (ball.velocity.x * dt)
-    ball.position.y = ball.position.y + (ball.velocity.y * dt)
+    objects.player.body:setX(love.mouse.getX())
 
-    player.position.x = love.mouse.getX() - player.width / 2
-
-    local playerBoundingBox = player:boundingBox()
-    local ballBoundingBox = ball:boundingBox()
-
-    if ballBoundingBox:isCollidingWith(playerBoundingBox)
-    then
-        local collisionVector =
-            ballBoundingBox:collisionVectorWith(playerBoundingBox)
-
-        if collisionVector.x ~= 0
-        then
-            ball.velocity.x = -ball.velocity.x
-        end
-
-        if collisionVector.y ~= 0
-        then
-            ball.velocity.y = -ball.velocity.y
-        end
-    end
+    world:update(dt)
 end
 
 function love.draw()
