@@ -51,9 +51,9 @@ end
 function love.update(dt)
     if isPaused then return end
 
-    objects.player.body:setX(love.mouse.getX())
-
     world:update(dt)
+
+    objects.player.body:setX(love.mouse.getX())
 end
 
 function love.draw()
