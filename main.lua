@@ -57,6 +57,45 @@ function love.load()
         objects.walls.right.shape,
         1)
 
+    objects.walls.left = {}
+    objects.walls.left.body = love.physics.newBody(
+        world,
+        0, 0,
+        "static")
+    objects.walls.left.shape = love.physics.newEdgeShape(
+        0, 0,
+        0, window.height)
+    objects.walls.left.fixture = love.physics.newFixture(
+        objects.walls.left.body,
+        objects.walls.left.shape,
+        1)
+
+    objects.walls.top = {}
+    objects.walls.top.body = love.physics.newBody(
+        world,
+        0, 0,
+        "static")
+    objects.walls.top.shape = love.physics.newEdgeShape(
+        0, 0,
+        window.width, 0)
+    objects.walls.top.fixture = love.physics.newFixture(
+        objects.walls.top.body,
+        objects.walls.top.shape,
+        1)
+
+    objects.walls.bottom = {}
+    objects.walls.bottom.body = love.physics.newBody(
+        world,
+        0, window.height,
+        "static")
+    objects.walls.bottom.shape = love.physics.newEdgeShape(
+        0, 0,
+        window.width, 0)
+    objects.walls.bottom.fixture = love.physics.newFixture(
+        objects.walls.bottom.body,
+        objects.walls.bottom.shape,
+        1)
+
     isPaused = false
 end
 
