@@ -41,6 +41,22 @@ function love.load()
         objects.player.shape,
         1) -- Density of 1, may need to be higher...
 
+    -- Setup walls
+    objects.walls = {}
+
+    objects.walls.right = {}
+    objects.walls.right.body = love.physics.newBody(
+        world,
+        window.width, 0,
+        "static")
+    objects.walls.right.shape = love.physics.newEdgeShape(
+        0, 0,
+        0, window.height)
+    objects.walls.right.fixture = love.physics.newFixture(
+        objects.walls.right.body,
+        objects.walls.right.shape,
+        1)
+
     isPaused = false
 end
 
