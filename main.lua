@@ -57,66 +57,18 @@ function love.update(dt)
 end
 
 function love.draw()
-    local playerBoundingBox = player:boundingBox()
-    local ballBoundingBox = ball:boundingBox()
-
-    love.graphics.setColor(1, 1, 1)
     -- Draw ball
+    love.graphics.setColor(1, 1, 1)
     love.graphics.circle(
         "fill",
-        ball.position.x,
-        ball.position.y,
-        ball.radius)
-    -- Draw ball's bounding box
-    love.graphics.setColor(1, 0, 0)
-    love.graphics.rectangle(
-        "line",
-        ballBoundingBox.x,
-        ballBoundingBox.y,
-        ballBoundingBox.width,
-        ballBoundingBox.height)
-
+        objects.ball.body:getX(),
+        objects.ball.body:getY(),
+        objects.ball.shape:getRadius())
 
     -- Draw player
     love.graphics.setColor(1, 1, 1)
-    love.graphics.rectangle(
+    love.graphics.polygon(
         "fill",
-        player.position.x,
-        player.position.y,
-        player.width,
-        player.height)
-    -- Draw player's bounding box
-    love.graphics.setColor(1, 0, 0)
-    love.graphics.rectangle(
-        "line",
-        playerBoundingBox.x,
-        playerBoundingBox.y,
-        playerBoundingBox.width,
-        playerBoundingBox.height)
-
-    if ballBoundingBox:isCollidingWith(playerBoundingBox)
-    then
-        local collisionVector =
-            ballBoundingBox:collisionVectorWith(playerBoundingBox):normalize()
-
-        collisionVector.x = collisionVector.x * 20
-        collisionVector.y = collisionVector.y * 20
-
-        love.graphics.setColor(1,1,1,0.5)
-        love.graphics.print(
-            string.format(
-                "Collision vector: [%d, %d]",
-                collisionVector.x,
-                collisionVector.y),
-            0, 0)
-
-        love.graphics.setColor(0,1,0)
-        love.graphics.line(
-            ball.position.x,
-            ball.position.y,
-            ball.position.x + collisionVector.x,
-            ball.position.y + collisionVector.y)
-
-        isPaused = true
-    end
+        objects.player.body:getWorldPoints(
+            objects.player.shape:getPoints()))
 end
