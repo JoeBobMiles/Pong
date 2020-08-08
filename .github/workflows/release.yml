@@ -57,7 +57,7 @@ jobs:
     needs: build
 
     env:
-      DRAFT: true
+      DRAFT: false
       PRERELEASE: ${{ contains(github.ref,'beta') || contains(github.ref,'alpha') }}
 
     steps:
