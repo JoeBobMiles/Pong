@@ -24,6 +24,7 @@ function love.load()
         objects.ball.shape,
         1) -- Density of 1, may need to be higher...
     objects.ball.fixture:setRestitution(1)
+    objects.ball.fixture:setFriction(0)
 
     -- Set ball in motion
     local initialForce = 12800
