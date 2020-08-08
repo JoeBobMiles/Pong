@@ -38,6 +38,44 @@ function love.load()
     isPaused = false
 end
 
+function love.keyreleased(key, scancode)
+    if key == "escape"
+    then
+        love.event.quit()
+    elseif key == "space"
+    then
+        isPaused = not isPaused
+    end
+end
+
+function love.update(dt)
+    if isPaused then return end
+
+    ball.position.x = ball.position.x + (ball.velocity.x * dt)
+    ball.position.y = ball.position.y + (ball.velocity.y * dt)
+
+    player.position.x = love.mouse.getX() - player.width / 2
+
+    local playerBoundingBox = player:boundingBox()
+    local ballBoundingBox = ball:boundingBox()
+
+    if ballBoundingBox:isCollidingWith(playerBoundingBox)
+    then
+        local collisionVector =
+            ballBoundingBox:collisionVectorWith(playerBoundingBox)
+
+        if collisionVector.x ~= 0
+        then
+            ball.velocity.x = -ball.velocity.x
+        end
+
+        if collisionVector.y ~= 0
+        then
+            ball.velocity.y = -ball.velocity.y
+        end
+    end
+end
+
 function love.draw()
     local playerBoundingBox = player:boundingBox()
     local ballBoundingBox = ball:boundingBox()
@@ -100,43 +138,5 @@ function love.draw()
             ball.position.y + collisionVector.y)
 
         isPaused = true
-    end
-end
-
-function love.update(dt)
-    if isPaused then return end
-
-    ball.position.x = ball.position.x + (ball.velocity.x * dt)
-    ball.position.y = ball.position.y + (ball.velocity.y * dt)
-
-    player.position.x = love.mouse.getX() - player.width / 2
-
-    local playerBoundingBox = player:boundingBox()
-    local ballBoundingBox = ball:boundingBox()
-
-    if ballBoundingBox:isCollidingWith(playerBoundingBox)
-    then
-        local collisionVector =
-            ballBoundingBox:collisionVectorWith(playerBoundingBox)
-
-        if collisionVector.x ~= 0
-        then
-            ball.velocity.x = -ball.velocity.x
-        end
-
-        if collisionVector.y ~= 0
-        then
-            ball.velocity.y = -ball.velocity.y
-        end
-    end
-end
-
-function love.keyreleased(key, scancode)
-    if key == "escape"
-    then
-        love.event.quit()
-    elseif key == "space"
-    then
-        isPaused = not isPaused
     end
 end
