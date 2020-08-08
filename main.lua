@@ -160,20 +160,33 @@ function love.load()
         height = love.graphics.getHeight(),
     }
 
-    ball = Ball:new{
-        position = Vector2:new{
-            x = window.width/2,
-            y = window.height/2,
-        },
-        radius = 5,
-    }
+    -- Create new Box2D World object, with no gravity.
+    world = love.physics.newWorld(0, 0, true)
 
-    player = Player:new{
-        position = Vector2:new{
-            x = 0,
-            y = window.height - 40,
-        }
-    }
+    objects = {} -- A table to store all our game entities.
+
+    -- Create the ball
+    objects.ball = {}
+    objects.ball.body = love.physics.newBody(
+        world,
+        window.width / 2, window.height / 2,
+        "dynamic")
+    objects.ball.shape = love.physics.newCircleShape(5)
+    objects.ball.fixture = love.physics.newFixture(
+        objects.ball.body,
+        objects.ball.shape,
+        1) -- Density of 1, may need to be higher...
+
+    -- Create the player
+    objects.player.body = love.physics.newBody(
+        world,
+        0, window.height - 40,
+        "kinematic")
+    objects.player.shape = love.physics.newRectangleShape(100, 20)
+    objects.player.fixture = love.physics.newFixture(
+        objects.player.body,
+        objects.player.shape,
+        1) -- Density of 1, may need to be higher...
 
     isPaused = false
 end
