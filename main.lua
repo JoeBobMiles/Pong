@@ -24,6 +24,10 @@ function love.load()
         objects.ball.shape,
         1) -- Density of 1, may need to be higher...
 
+    -- Set ball in motion
+    local initialForce = 6400
+    objects.ball.body:applyForce(initialForce, initialForce)
+
     -- Create the player
     objects.player = {}
     objects.player.body = love.physics.newBody(
