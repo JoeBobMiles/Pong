@@ -9,6 +9,7 @@ function love.load()
 
     -- Create new Box2D World object, with no gravity.
     world = love.physics.newWorld(0, 0, true)
+    world:setCallbacks(beginContact, nil, nil, nil)
 
     objects = {} -- A table to store all our game entities.
 
@@ -25,6 +26,7 @@ function love.load()
         1) -- Density of 1, may need to be higher...
     objects.ball.fixture:setRestitution(1)
     objects.ball.fixture:setFriction(0)
+    objects.ball.fixture:setUserData("Ball")
 
     -- Set ball in motion
     local initialForce = 12800
@@ -96,6 +98,7 @@ function love.load()
         objects.walls.bottom.body,
         objects.walls.bottom.shape,
         1)
+    objects.walls.bottom.fixture:setUserData("Goal")
 
     isPaused = false
 end
@@ -133,4 +136,13 @@ function love.draw()
         "fill",
         objects.player.body:getWorldPoints(
             objects.player.shape:getPoints()))
+end
+
+-- World Collision Callbacks
+function beginContact(a, b, coll)
+    if a:getUserData() == "Ball" and b:getUserData() == "Goal"
+        or a:getUserData() == "Goal" and b:getUserData() == "Ball"
+    then
+        love.event.quit()
+    end
 end
