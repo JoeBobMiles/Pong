@@ -25,6 +25,7 @@ function love.load()
         1) -- Density of 1, may need to be higher...
 
     -- Create the player
+    objects.player = {}
     objects.player.body = love.physics.newBody(
         world,
         0, window.height - 40,
