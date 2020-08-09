@@ -1,3 +1,4 @@
+-- State class
 local State = {}
 
 function State:new(state)
@@ -9,8 +10,8 @@ function State:new(state)
     return state
 end
 
-function State:next()
-    error("State:next() is not implemented", 2)
+function State:transition(game)
+    error("State:transition() is not implemented", 2)
 end
 
 return State
