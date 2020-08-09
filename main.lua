@@ -166,8 +166,8 @@ function love.load()
     game = Game:new()
 
     local window = {
-        height = love.graphics.getWidth(),
-        width = love.graphics.getHeight(),
+        width = love.graphics.getWidth(),
+        height = love.graphics.getHeight(),
     }
 
     game.world = love.physics.newWorld(0, 0, true)
