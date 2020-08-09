@@ -1,104 +1,214 @@
+-- Game class
+local Game = { world = nil }
+
+function Game:new(game)
+    game = game or {}
+
+    setmetatable(game, self)
+    self.__index = self
+
+    return game
+end
+
+-- GameObject class
+local GameObject = {
+    body = nil,
+    shape = nil,
+    fixture = nil,
+}
+
+function GameObject:new(object, body, shape, fixture)
+    object = object or {}
+
+    setmetatable(object, self)
+    self.__index = self
+
+    body = body or nil
+    shape  = shape or nil
+    fixture = fixture or nil
+
+    return object
+end
+
+function GameObject:update()
+    error("GameObject:update() is not implemented", 2)
+end
+
+function GameObject:draw(dt)
+    error("GameObject:draw() is not implemented", 2)
+end
+
+-- Ball class
+local Ball = GameObject:new()
+
+function Ball:new(ball, world, x, y, radius)
+    ball = ball or GameObject:new()
+
+    setmetatable(ball, self)
+    self.__index = self
+
+    ball.body = love.physics.newBody(world, x, y, "dynamic")
+    ball.shape = love.physics.newCircleShape(radius)
+    ball.fixture = love.physics.newFixture(
+        ball.body,
+        ball.shape,
+        1)
+
+    ball.fixture:setRestitution(1)
+    ball.fixture:setFriction(0)
+
+    ball.fixture:setUserData("Ball")
+
+    return ball
+end
+
+function Ball:update(dt)
+    print(self.body:getX(), self.body:getY())
+end
+
+function Ball:draw()
+    love.graphics.setColor(1, 1, 1)
+    love.graphics.circle(
+        "fill",
+        self.body:getX(),
+        self.body:getY(),
+        self.shape:getRadius())
+end
+
+-- Player class
+local Player = GameObject:new()
+
+function Player:new(player, world, x, y)
+    player = player or GameObject:new()
+
+    setmetatable(player, self)
+    self.__index = self
+
+    player.body = love.physics.newBody(world, x, y, "kinematic")
+    player.shape = love.physics.newRectangleShape(100, 10)
+    player.fixture = love.physics.newFixture(
+        player.body,
+        player.shape,
+        1)
+
+    return player
+end
+
+function Player:update()
+    game.objects.player.body:setX(love.mouse.getX())
+end
+
+function Player:draw()
+    love.graphics.setColor(1, 1, 1)
+    love.graphics.polygon(
+        "fill",
+        self.body:getWorldPoints(
+            self.shape:getPoints()))
+end
+
+-- (Invisible) Wall class
+local Wall = GameObject:new()
+
+function Wall:new(wall, world, x1, y1, x2, y2)
+    wall = wall or GameObject:new()
+
+    setmetatable(wall, self)
+    self.__index = self
+
+    if not world
+    then
+        error("World cannot be nil!", 2)
+    else
+        wall.body = love.physics.newBody(world, x1, y2, "static")
+        -- Shape coordinates are relative to body coordinates, so we have to
+        -- transform the coordinates passed (absolute, world coordinates) into
+        -- coordinates relative to the body position.
+        wall.shape = love.physics.newEdgeShape(
+            x1 - x1, y1 - y1,
+            x2 - x1, y2 - y1)
+        wall.fixture = love.physics.newFixture(
+            wall.body,
+            wall.shape,
+            1)
+    end
+
+    return wall
+end
+
+function Wall:update()
+    return
+end
+
+function Wall:draw()
+    love.graphics.setColor(1,0,0)
+    x1, y1, x2, y2 = 
+        self.body:getWorldPoints(
+            self.shape:getPoints())
+    love.graphics.line(x1, y1, x2, y2)
+end
+
+-- Goal class
+local Goal = GameObject:new()
+
+function Goal:new(goal, world, x1, y1, x2, y2)
+    goal = goal or Wall:new(nil, world, x1, y1, x2, y2)
+
+    setmetatable(goal, self)
+    self.__index = self
+
+    goal.fixture:setUserData("Goal")
+end
+
 -- Game code
 function love.load()
     love.window.setTitle("🏓PONG")
 
-    window = {
-        width = love.graphics.getWidth(),
-        height = love.graphics.getHeight(),
+    game = Game:new()
+
+    local window = {
+        height = love.graphics.getWidth(),
+        width = love.graphics.getHeight(),
     }
 
-    -- Create new Box2D World object, with no gravity.
-    world = love.physics.newWorld(0, 0, true)
-    world:setCallbacks(beginContact, nil, nil, nil)
+    game.world = love.physics.newWorld(0, 0, true)
+    game.world:setCallbacks(beginContact, nil, nil, nil)
 
-    objects = {} -- A table to store all our game entities.
+    game.objects = {}
 
-    -- Create the ball
-    objects.ball = {}
-    objects.ball.body = love.physics.newBody(
-        world,
+    game.objects.ball = Ball:new(
+        nil,
+        game.world,
         window.width / 2, window.height / 2,
-        "dynamic")
-    objects.ball.shape = love.physics.newCircleShape(5)
-    objects.ball.fixture = love.physics.newFixture(
-        objects.ball.body,
-        objects.ball.shape,
-        1) -- Density of 1, may need to be higher...
-    objects.ball.fixture:setRestitution(1)
-    objects.ball.fixture:setFriction(0)
-    objects.ball.fixture:setUserData("Ball")
+        5)
 
-    -- Set ball in motion
     local initialForce = 12800
-    objects.ball.body:applyForce(initialForce, initialForce)
+    game.objects.ball.body:applyForce(initialForce, initialForce)
 
-    -- Create the player
-    objects.player = {}
-    objects.player.body = love.physics.newBody(
-        world,
-        0, window.height - 40,
-        "kinematic")
-    objects.player.shape = love.physics.newRectangleShape(100, 20)
-    objects.player.fixture = love.physics.newFixture(
-        objects.player.body,
-        objects.player.shape,
-        1) -- Density of 1, may need to be higher...
+    game.objects.player = Player:new(
+        nil,
+        game.world,
+        0, window.height - 40)
 
-    -- Setup walls
-    objects.walls = {}
-
-    objects.walls.right = {}
-    objects.walls.right.body = love.physics.newBody(
-        world,
+    game.objects.right_wall = Wall:new(
+        nil,
+        game.world,
         window.width, 0,
-        "static")
-    objects.walls.right.shape = love.physics.newEdgeShape(
+        window.width, window.height)
+    game.objects.left_wall = Wall:new(
+        nil,
+        game.world,
         0, 0,
         0, window.height)
-    objects.walls.right.fixture = love.physics.newFixture(
-        objects.walls.right.body,
-        objects.walls.right.shape,
-        1)
-
-    objects.walls.left = {}
-    objects.walls.left.body = love.physics.newBody(
-        world,
-        0, 0,
-        "static")
-    objects.walls.left.shape = love.physics.newEdgeShape(
-        0, 0,
-        0, window.height)
-    objects.walls.left.fixture = love.physics.newFixture(
-        objects.walls.left.body,
-        objects.walls.left.shape,
-        1)
-
-    objects.walls.top = {}
-    objects.walls.top.body = love.physics.newBody(
-        world,
-        0, 0,
-        "static")
-    objects.walls.top.shape = love.physics.newEdgeShape(
+    game.objects.top_wall = Wall:new(
+        nil,
+        game.world,
         0, 0,
         window.width, 0)
-    objects.walls.top.fixture = love.physics.newFixture(
-        objects.walls.top.body,
-        objects.walls.top.shape,
-        1)
-
-    objects.walls.bottom = {}
-    objects.walls.bottom.body = love.physics.newBody(
-        world,
+    game.objects.bottom_wall = Goal:new(
+        nil,
+        game.world,
         0, window.height,
-        "static")
-    objects.walls.bottom.shape = love.physics.newEdgeShape(
-        0, 0,
-        window.width, 0)
-    objects.walls.bottom.fixture = love.physics.newFixture(
-        objects.walls.bottom.body,
-        objects.walls.bottom.shape,
-        1)
-    objects.walls.bottom.fixture:setUserData("Goal")
+        window.width, window.height)
 
     isPaused = false
 end
@@ -116,33 +226,28 @@ end
 function love.update(dt)
     if isPaused then return end
 
-    world:update(dt)
+    game.world:update(dt)
 
-    objects.player.body:setX(love.mouse.getX())
+    for name, object in pairs(game.objects)
+    do
+        object:update()
+    end
 end
 
 function love.draw()
-    -- Draw ball
-    love.graphics.setColor(1, 1, 1)
-    love.graphics.circle(
-        "fill",
-        objects.ball.body:getX(),
-        objects.ball.body:getY(),
-        objects.ball.shape:getRadius())
-
-    -- Draw player
-    love.graphics.setColor(1, 1, 1)
-    love.graphics.polygon(
-        "fill",
-        objects.player.body:getWorldPoints(
-            objects.player.shape:getPoints()))
+    for name, object in pairs(game.objects)
+    do
+        object:draw()
+    end
 end
 
 -- World Collision Callbacks
 function beginContact(a, b, coll)
+    --[[
     if a:getUserData() == "Ball" and b:getUserData() == "Goal"
         or a:getUserData() == "Goal" and b:getUserData() == "Ball"
     then
         love.event.quit()
     end
+    --]]
 end
