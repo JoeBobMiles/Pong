@@ -66,7 +66,7 @@ function Game:init()
         0, window.height,
         window.width, window.height)
 
-    self.isPaused = true
+    self.isPaused = false
 end
 
 function Game:update(dt)
