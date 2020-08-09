@@ -20,7 +20,7 @@ function Player:new(player, world, x, y)
 end
 
 function Player:update()
-    game.objects.player.body:setX(love.mouse.getX())
+    self.body:setX(love.mouse.getX())
 end
 
 function Player:draw()
