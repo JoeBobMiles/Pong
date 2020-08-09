@@ -1,5 +1,8 @@
 -- Game class
-local Game = { world = nil }
+local Game = {
+    world = nil,
+    objects = nil,
+}
 
 function Game:new(game)
     game = game or {}
