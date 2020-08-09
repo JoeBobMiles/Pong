@@ -4,19 +4,8 @@ local GameObject = require("core.object.GameObject")
 local Ball = require("core.object.Ball")
 local Player = require("core.object.Player")
 local Wall = require("core.object.Wall")
+local Goal = require("core.object.Goal")
 
-
--- Goal class
-local Goal = GameObject:new()
-
-function Goal:new(goal, world, x1, y1, x2, y2)
-    goal = goal or Wall:new(nil, world, x1, y1, x2, y2)
-
-    setmetatable(goal, self)
-    self.__index = self
-
-    goal.fixture:setUserData("Goal")
-end
 
 -- Game code
 function love.load()
