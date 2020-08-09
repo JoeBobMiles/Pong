@@ -1,14 +1,4 @@
--- Game class
-local Game = { world = nil }
-
-function Game:new(game)
-    game = game or {}
-
-    setmetatable(game, self)
-    self.__index = self
-
-    return game
-end
+local Game = require("core.Game")
 
 -- GameObject class
 local GameObject = {
