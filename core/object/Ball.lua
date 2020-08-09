@@ -25,7 +25,7 @@ function Ball:new(ball, world, x, y, radius)
 end
 
 function Ball:update(dt)
-    print(self.body:getX(), self.body:getY())
+    return
 end
 
 function Ball:draw()
