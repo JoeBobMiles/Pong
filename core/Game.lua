@@ -82,4 +82,8 @@ function Game:draw()
     self.state:draw(self)
 end
 
+function Game:keyreleased(key, scancode)
+    self.state = self.state:keyreleased(self, key, scancode)
+end
+
 return Game

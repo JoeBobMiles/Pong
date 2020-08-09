@@ -10,13 +10,7 @@ function love.load()
 end
 
 function love.keyreleased(key, scancode)
-    if key == "escape"
-    then
-        love.event.quit()
-    elseif key == "space"
-    then
-        game.isPaused = not game.isPaused
-    end
+    game:keyreleased(key, scancode)
 end
 
 function love.update(dt)

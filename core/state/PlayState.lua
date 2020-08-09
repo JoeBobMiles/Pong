@@ -1,6 +1,6 @@
 local State = require("core.state.State")
 
-local PlayState = {}
+local PlayState = State:new()
 
 function PlayState:new(state)
     state = state or State:new()
@@ -29,6 +29,18 @@ function PlayState:draw(game)
     do
         object:draw()
     end
+end
+
+function PlayState:keyreleased(game, key, scancode)
+    if key == "escape"
+    then
+        love.event.quit()
+    elseif key == "space"
+    then
+        game.isPaused = not game.isPaused
+    end
+
+    return self
 end
 
 return PlayState
