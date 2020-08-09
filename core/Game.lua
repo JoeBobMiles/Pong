@@ -79,10 +79,7 @@ function Game:update(dt)
 end
 
 function Game:draw()
-    for name, object in pairs(self.objects)
-    do
-        object:draw()
-    end
+    self.state:draw(self)
 end
 
 return Game

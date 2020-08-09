@@ -24,4 +24,11 @@ function PlayState:update(game, dt)
     return self
 end
 
+function PlayState:draw(game)
+    for name, object in pairs(game.objects)
+    do
+        object:draw()
+    end
+end
+
 return PlayState
