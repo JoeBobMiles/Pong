@@ -140,11 +140,7 @@ function Wall:update()
 end
 
 function Wall:draw()
-    love.graphics.setColor(1,0,0)
-    x1, y1, x2, y2 = 
-        self.body:getWorldPoints(
-            self.shape:getPoints())
-    love.graphics.line(x1, y1, x2, y2)
+    return
 end
 
 -- Goal class
