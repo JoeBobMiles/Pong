@@ -1,5 +1,4 @@
 local Game = require("core.Game")
-local GameObject = require("core.object.GameObject")
 
 local Ball = require("core.object.Ball")
 local Player = require("core.object.Player")
