@@ -249,11 +249,9 @@ end
 
 -- World Collision Callbacks
 function beginContact(a, b, coll)
-    --[[
     if a:getUserData() == "Ball" and b:getUserData() == "Goal"
         or a:getUserData() == "Goal" and b:getUserData() == "Ball"
     then
         love.event.quit()
     end
-    --]]
 end
