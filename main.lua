@@ -15,7 +15,7 @@ function love.keyreleased(key, scancode)
         love.event.quit()
     elseif key == "space"
     then
-        isPaused = not isPaused
+        game.isPaused = not game.isPaused
     end
 end
 

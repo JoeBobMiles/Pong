@@ -1,3 +1,5 @@
+local PlayState = require("core.state.PlayState")
+
 local Ball = require("core.object.Ball")
 local Player = require("core.object.Player")
 local Wall = require("core.object.Wall")
@@ -8,6 +10,7 @@ local Goal = require("core.object.Goal")
 local Game = {
     world = nil,
     objects = nil,
+    state = nil,
     isPaused = false,
 }
 
@@ -21,6 +24,8 @@ function Game:new(game)
 end
 
 function Game:init()
+    self.state = PlayState:new()
+
     self.world = love.physics.newWorld(0, 0, true)
     self.world:setCallbacks(beginContact, nil, nil, nil)
 
@@ -70,14 +75,7 @@ function Game:init()
 end
 
 function Game:update(dt)
-    if self.isPaused then return end
-
-    self.world:update(dt)
-
-    for name, object in pairs(self.objects)
-    do
-        object:update(dt)
-    end
+    self.state = self.state:update(self, dt)
 end
 
 function Game:draw()
