@@ -27,7 +27,6 @@ function Game:init()
     self.state = PlayState:new()
 
     self.world = love.physics.newWorld(0, 0, true)
-    self.world:setCallbacks(beginContact, nil, nil, nil)
 
     local window = {
         width = love.graphics.getWidth(),
