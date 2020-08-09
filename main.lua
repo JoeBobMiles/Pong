@@ -12,13 +12,13 @@ function love.load()
 
     game = Game:new()
 
+    game.world = love.physics.newWorld(0, 0, true)
+    game.world:setCallbacks(beginContact, nil, nil, nil)
+
     local window = {
         width = love.graphics.getWidth(),
         height = love.graphics.getHeight(),
     }
-
-    game.world = love.physics.newWorld(0, 0, true)
-    game.world:setCallbacks(beginContact, nil, nil, nil)
 
     game.objects = {}
 
