@@ -86,12 +86,6 @@ function love.draw()
     do
         object:draw()
     end
-
-    love.graphics.setColor(0,1,0)
-    love.graphics.circle(
-        "fill",
-        love.graphics.getWidth() / 2, love.graphics.getHeight() / 2,
-        2)
 end
 
 -- World Collision Callbacks
