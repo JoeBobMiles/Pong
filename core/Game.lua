@@ -1,5 +1,6 @@
 local PlayState = require("core.state.PlayState")
 local PauseState = require("core.state.PauseState")
+local GameOverState = require("core.state.GameOverState")
 
 local Ball = require("core.object.Ball")
 local Player = require("core.object.Player")

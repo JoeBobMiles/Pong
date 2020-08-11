@@ -13,12 +13,31 @@ function PlayState:new(state)
     return state
 end
 
+local function isBall(fixture)
+    return fixture:getUserData() == "Ball"
+end
+
+local function isGoal(fixture)
+    return fixture:getUserData() == "Goal"
+end
+
 function PlayState:update(game, dt)
     game.world:update(dt)
 
     for name, object in pairs(game.objects)
     do
         object:update(dt)
+    end
+
+    for key, contact in pairs(game.world:getContacts())
+    do
+        fixtureA, fixtureB = contact:getFixtures()
+
+        if isBall(fixtureA) and isGoal(fixtureB)
+            or isGoal(fixtureA) and isBall(fixtureB)
+        then
+            return TransitionTable:transitionTo("gameover")
+        end
     end
 
     return self
