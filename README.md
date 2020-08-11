@@ -28,7 +28,7 @@ instructions:
 # How to Play
 
 Simply move the mouse to place the paddle in the path of the ball! Keep it from
-hitting the bottom of the screen and you won't loose!
+hitting the bottom of the screen and you won't lose!
 
 ## Keybindings
 
@@ -41,4 +41,4 @@ hitting the bottom of the screen and you won't loose!
 
 ### Why does the ball sometimes fly across the screen at impossibly fast speeds?
 
-¯\\\_(ツ)\_/¯. See #1.
+¯\\\_(ツ)\_/¯. See [this issue](https://github.com/JoeBobMiles/Pong/issues/1).
