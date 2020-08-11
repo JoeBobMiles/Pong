@@ -1,5 +1,7 @@
 local State = require("core.state.State")
+local TransitionTable = require("core.state.TransitionTable")
 
+-- PlayState class
 local PlayState = State:new()
 
 function PlayState:new(state)
@@ -12,8 +14,6 @@ function PlayState:new(state)
 end
 
 function PlayState:update(game, dt)
-    if game.isPaused then return self end
-
     game.world:update(dt)
 
     for name, object in pairs(game.objects)
@@ -32,15 +32,13 @@ function PlayState:draw(game)
 end
 
 function PlayState:keyreleased(game, key, scancode)
-    if key == "escape"
+    if key == "space"
     then
-        love.event.quit()
-    elseif key == "space"
-    then
-        game.isPaused = not game.isPaused
+        return TransitionTable:transitionTo("pause")
+    else
+        return self
     end
-
-    return self
 end
 
+TransitionTable:register("play", PlayState)
 return PlayState

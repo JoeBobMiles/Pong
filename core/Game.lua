@@ -1,4 +1,5 @@
 local PlayState = require("core.state.PlayState")
+local PauseState = require("core.state.PauseState")
 
 local Ball = require("core.object.Ball")
 local Player = require("core.object.Player")
@@ -11,7 +12,6 @@ local Game = {
     world = nil,
     objects = nil,
     state = nil,
-    isPaused = false,
 }
 
 function Game:new(game)
@@ -69,8 +69,6 @@ function Game:init()
         self.world,
         0, window.height,
         window.width, window.height)
-
-    self.isPaused = false
 end
 
 function Game:update(dt)

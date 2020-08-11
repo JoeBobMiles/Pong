@@ -10,7 +10,12 @@ function love.load()
 end
 
 function love.keyreleased(key, scancode)
-    game:keyreleased(key, scancode)
+    if key == "escape"
+    then
+        love.event.quit()
+    else
+        game:keyreleased(key, scancode)
+    end
 end
 
 function love.update(dt)
