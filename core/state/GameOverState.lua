@@ -21,6 +21,12 @@ function GameOverState:draw(game)
     do
         object:draw()
     end
+
+    love.graphics.printf(
+        "Game Over!",
+        0, love.graphics.getHeight() / 2,
+        love.graphics.getWidth(),
+        "center")
 end
 
 function GameOverState:keyreleased(game, key, scancode)
