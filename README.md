@@ -20,6 +20,7 @@ either download `pong.love` or the zip file for your platform.
 After downloading the appropriate zip file for you platform, follow these
 instructions:
 
+| System | |
 |:-:|---|
 | **Windows** | Unzip the archive to the desired location. **Do not remove `pong.exe` from the folder!** Double-click `pong.exe` and play! |
 | **MacOS** | _... TBD ..._ |
@@ -31,6 +32,7 @@ hitting the bottom of the screen and you won't loose!
 
 ## Keybindings
 
+| Key | |
 |:-:|---|
 | **Esc** | Quit the game |
 | **Space** | Pause the game |
