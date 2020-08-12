@@ -23,14 +23,19 @@ function GameOverState:draw(game)
     end
 
     love.graphics.printf(
-        "Game Over!",
+        "Game Over!\nPress <Space> to restart.",
         0, love.graphics.getHeight() / 2,
         love.graphics.getWidth(),
         "center")
 end
 
 function GameOverState:keyreleased(game, key, scancode)
-    return self
+    if key == "space"
+    then
+        return TransitionTable:transitionTo("init")
+    else
+        return self
+    end
 end
 
 TransitionTable:register("gameover", GameOverState)
