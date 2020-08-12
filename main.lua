@@ -6,7 +6,6 @@ function love.load()
     love.window.setTitle("🏓PONG")
 
     game = Game:new()
-    game:init()
 end
 
 function love.keyreleased(key, scancode)
