@@ -1,3 +1,0 @@
-local State = require("core.state.State")
-
-local GameOverState = State:new()
