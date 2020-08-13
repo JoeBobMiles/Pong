@@ -9,6 +9,8 @@ function State:new(state, stateMachine)
     setmetatable(state, self)
     self.__index = self
 
+    self.stateMachine = stateMachine
+
     return state
 end
 
