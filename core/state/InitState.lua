@@ -1,5 +1,4 @@
 local State = require("core.state.State")
-local TransitionTable = require("core.state.TransitionTable")
 
 local Ball = require("core.object.Ball")
 local Player = require("core.object.Player")
@@ -8,8 +7,8 @@ local Goal = require("core.object.Goal")
 
 local InitState = State:new()
 
-function InitState:new(state)
-    state = state or State:new()
+function InitState:new(state, stateMachine)
+    state = state or State:new(state, stateMachine)
 
     setmetatable(state, self)
     self.__index = self
@@ -69,7 +68,7 @@ function InitState:update(game, dt)
     -- consistent speed.
     game.world:update(0.017)
 
-    return TransitionTable:transitionTo("play")
+    return self.stateMachine:transitionTo("play")
 end
 
 function InitState:draw(game)
@@ -83,5 +82,4 @@ function InitState:keyreleased(game, key, scancode)
     return self
 end
 
-TransitionTable:register("init", InitState)
 return InitState
