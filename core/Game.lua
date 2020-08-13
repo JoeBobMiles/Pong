@@ -1,10 +1,4 @@
-local InitState = require("core.state.InitState")
-local PlayState = require("core.state.PlayState")
-local PauseState = require("core.state.PauseState")
-local GameOverState = require("core.state.GameOverState")
-
-local GameStateMachine = require("core.state.GameStateMachine")
-
+local GameStateMachine = require("engine.state.GameStateMachine")
 
 -- Game class
 local Game = {
