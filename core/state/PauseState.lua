@@ -1,11 +1,10 @@
 local State = require("core.state.State")
-local TransitionTable = require("core.state.TransitionTable")
 
 -- PauseState class
 local PauseState = State:new()
 
-function PauseState:new(state)
-    state = state or State:new()
+function PauseState:new(state, stateMachine)
+    state = state or State:new(state, stateMachine)
 
     setmetatable(state, self)
     self.__index = self
@@ -27,11 +26,10 @@ end
 function PauseState:keyreleased(game, key, scancode)
     if key == "space"
     then
-        return TransitionTable:transitionTo("play")
+        return self.stateMachine:transitionTo("play")
     else
         return self
     end
 end
 
-TransitionTable:register("pause", PauseState)
 return PauseState

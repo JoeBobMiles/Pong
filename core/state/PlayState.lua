@@ -1,5 +1,4 @@
 local State = require("core.state.State")
-local TransitionTable = require("core.state.TransitionTable")
 
 -- PlayState class
 local PlayState = State:new()
