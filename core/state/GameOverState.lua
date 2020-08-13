@@ -1,4 +1,4 @@
-local State = require("core.state.State")
+local State = require("engine.state.State")
 
 local GameOverState = State:new()
 
