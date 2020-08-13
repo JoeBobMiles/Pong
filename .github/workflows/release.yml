@@ -128,7 +128,7 @@ jobs:
       uses: actions/download-artifact@v2
 
     - name: Extract version number from GitHub ref
-      run: echo "::set-env name=VERSION::${GITHUB_REF##*/}"
+      run: echo "::set-env name=VERSION::${GITHUB_REF##*/v}"
 
     - name: Upload .love bundle.
       uses: josephbmanley/butler-publish-itchio-action@master
