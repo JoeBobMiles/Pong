@@ -10,7 +10,6 @@ local GameStateMachine = require("core.state.GameStateMachine")
 local Game = {
     world = nil,
     objects = nil,
-    state = InitState:new(),
     stateMachine = GameStateMachine:new(),
 }
 
