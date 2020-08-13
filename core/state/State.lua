@@ -1,13 +1,19 @@
 -- State class
-local State = {}
+local State = {
+    stateMachine = nil,
+}
 
-function State:new(state)
+function State:new(state, stateMachine)
     state = state or {}
 
     setmetatable(state, self)
     self.__index = self
 
     return state
+end
+
+function State:transitionTo(stateName)
+    return self.stateMachine:transitionTo(stateName)
 end
 
 function State:update(game, dt)

@@ -30,7 +30,7 @@ function StateMachine:transitionTo(stateName)
 
     if prototype ~= nil
     then
-        currentState = prototype:new()
+        self.currentState = prototype:new(nil, self)
     else
         error("State '" .. stateName .. "' is not registered", 2)
         return nil
