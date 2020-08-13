@@ -4,8 +4,8 @@ local TransitionTable = require("core.state.TransitionTable")
 -- PlayState class
 local PlayState = State:new()
 
-function PlayState:new(state)
-    state = state or State:new()
+function PlayState:new(state, stateMachine)
+    state = state or State:new(state, stateMachine)
 
     setmetatable(state, self)
     self.__index = self
@@ -36,7 +36,7 @@ function PlayState:update(game, dt)
         if isBall(fixtureA) and isGoal(fixtureB)
             or isGoal(fixtureA) and isBall(fixtureB)
         then
-            return TransitionTable:transitionTo("gameover")
+            return self.stateMachine:transitionTo("gameover")
         end
     end
 
@@ -53,11 +53,10 @@ end
 function PlayState:keyreleased(game, key, scancode)
     if key == "space"
     then
-        return TransitionTable:transitionTo("pause")
+        return self.stateMachine:transitionTo("pause")
     else
         return self
     end
 end
 
-TransitionTable:register("play", PlayState)
 return PlayState
