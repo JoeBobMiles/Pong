@@ -1,4 +1,4 @@
-local GameObject = require("core.object.GameObject")
+local GameObject = require("engine.object.GameObject")
 
 -- (Invisible) Wall class
 local Wall = GameObject:new()
