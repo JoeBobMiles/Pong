@@ -36,9 +36,3 @@ hitting the bottom of the screen and you won't lose!
 |:-:|---|
 | **Esc** | Quit the game |
 | **Space** | Pause the game |
-
-# FAQ
-
-### Why does the ball sometimes fly across the screen at impossibly fast speeds?
-
-¯\\\_(ツ)\_/¯. See [this issue](https://github.com/JoeBobMiles/Pong/issues/1).

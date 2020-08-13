@@ -62,6 +62,13 @@ function InitState:update(game, dt)
         0, window.height,
         window.width, window.height)
 
+    -- HACK: When this function updates, the initial dt is incredibly small,
+    -- which means the force applied to the ball is applied over an incredibly
+    -- small period of time. By applying it over the (approximately) same amount
+    -- of time as the average mid-game frame, we get a ball that travels at a
+    -- consistent speed.
+    game.world:update(0.017)
+
     return TransitionTable:transitionTo("play")
 end
 
