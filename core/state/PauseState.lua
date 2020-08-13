@@ -1,10 +1,10 @@
-local State = require("engine.state.State")
+local GameState = require("engine.state.GameState")
 
 -- PauseState class
-local PauseState = State:new()
+local PauseState = GameState:new()
 
 function PauseState:new(state, stateMachine)
-    state = state or State:new(state, stateMachine)
+    state = state or GameState:new(state, stateMachine)
 
     setmetatable(state, self)
     self.__index = self

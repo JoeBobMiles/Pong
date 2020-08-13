@@ -1,14 +1,14 @@
-local State = require("engine.state.State")
+local GameState = require("engine.state.GameState")
 
 local Ball = require("core.object.Ball")
 local Player = require("core.object.Player")
 local Wall = require("core.object.Wall")
 local Goal = require("core.object.Goal")
 
-local InitState = State:new()
+local InitState = GameState:new()
 
 function InitState:new(state, stateMachine)
-    state = state or State:new(state, stateMachine)
+    state = state or GameState:new(state, stateMachine)
 
     setmetatable(state, self)
     self.__index = self

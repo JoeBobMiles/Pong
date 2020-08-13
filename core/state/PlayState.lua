@@ -1,10 +1,10 @@
-local State = require("engine.state.State")
+local GameState = require("engine.state.GameState")
 
 -- PlayState class
-local PlayState = State:new()
+local PlayState = GameState:new()
 
 function PlayState:new(state, stateMachine)
-    state = state or State:new(state, stateMachine)
+    state = state or GameState:new(state, stateMachine)
 
     setmetatable(state, self)
     self.__index = self
