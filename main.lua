@@ -1,4 +1,4 @@
-local Game = require("core.Game")
+local Game = require("game.Game")
 
 
 -- Game code

@@ -1,9 +1,9 @@
 local GameState = require("engine.state.GameState")
 
-local Ball = require("core.object.Ball")
-local Player = require("core.object.Player")
-local Wall = require("core.object.Wall")
-local Goal = require("core.object.Goal")
+local Ball = require("game.object.Ball")
+local Player = require("game.object.Player")
+local Wall = require("game.object.Wall")
+local Goal = require("game.object.Goal")
 
 local InitState = GameState:new()
 

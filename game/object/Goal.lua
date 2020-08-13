@@ -1,5 +1,5 @@
 local GameObject = require("engine.object.GameObject")
-local Wall = require("core.object.Wall")
+local Wall = require("game.object.Wall")
 
 -- Goal class
 local Goal = GameObject:new()
