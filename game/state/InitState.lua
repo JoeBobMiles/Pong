@@ -61,6 +61,8 @@ function InitState:update(game, dt)
         0, window.height,
         window.width, window.height)
 
+    game.score = 0
+
     self.stateMachine:transitionTo("play")
 end
 

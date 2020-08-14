@@ -16,6 +16,8 @@ function Player:new(player, world, x, y)
         player.shape,
         1)
 
+    player.fixture:setUserData("Player")
+
     return player
 end
 

@@ -10,6 +10,7 @@ local Game = {
     world = nil,
     objects = nil,
     stateMachine = GameStateMachine:new(),
+    score = 0,
 }
 
 function Game:new(game)
@@ -33,6 +34,8 @@ function Game:update(dt)
 end
 
 function Game:draw()
+    love.graphics.print(self.score, 0, 0)
+
     self.stateMachine:draw(self)
 end
 

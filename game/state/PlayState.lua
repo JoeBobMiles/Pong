@@ -20,6 +20,10 @@ local function isGoal(fixture)
     return fixture:getUserData() == "Goal"
 end
 
+local function isPlayer(fixture)
+    return fixture:getUserData() == "Player"
+end
+
 function PlayState:update(game, dt)
     game.world:update(dt)
 
@@ -35,7 +39,11 @@ function PlayState:update(game, dt)
         if isBall(fixtureA) and isGoal(fixtureB)
             or isGoal(fixtureA) and isBall(fixtureB)
         then
-            self.stateMachine:transitionTo("gameover")
+            self.stateMachine:transitionTo("gameover") 
+        elseif isBall(fixtureA) and isPlayer(fixtureB)
+            or isPlayer(fixtureA) and isBall(fixtureB)
+        then
+            game.score = game.score + 1
         end
     end
 end
