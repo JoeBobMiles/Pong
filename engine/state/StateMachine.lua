@@ -26,6 +26,7 @@ function StateMachine:register(stateName, prototype)
 end
 
 function StateMachine:transitionTo(stateName)
+    print("Transitioning to state " .. stateName)
     local prototype = self._transitionTable[stateName]
 
     if prototype ~= nil

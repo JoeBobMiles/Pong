@@ -13,7 +13,7 @@ function GameStateMachine:new(stateMachine)
 end
 
 function GameStateMachine:update(game, dt)
-    self.currentState = self.currentState:update(game, dt)
+    self.currentState:update(game, dt)
 end
 
 function GameStateMachine:draw(game)
@@ -21,7 +21,7 @@ function GameStateMachine:draw(game)
 end
 
 function GameStateMachine:keyreleased(game, key, scancode)
-    self.currentState = self.currentState:keyreleased(game, key, scancode)
+    self.currentState:keyreleased(game, key, scancode)
 end
 
 return GameStateMachine

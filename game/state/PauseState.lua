@@ -13,7 +13,7 @@ function PauseState:new(state, stateMachine)
 end
 
 function PauseState:update(game, dt)
-    return self
+    return
 end
 
 function PauseState:draw(game)
@@ -26,9 +26,7 @@ end
 function PauseState:keyreleased(game, key, scancode)
     if key == "space"
     then
-        return self.stateMachine:transitionTo("play")
-    else
-        return self
+        self.stateMachine:transitionTo("play")
     end
 end
 

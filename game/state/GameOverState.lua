@@ -12,7 +12,7 @@ function GameOverState:new(state, stateMachine)
 end
 
 function GameOverState:update(game, dt)
-    return self
+    return
 end
 
 function GameOverState:draw(game)
@@ -31,9 +31,7 @@ end
 function GameOverState:keyreleased(game, key, scancode)
     if key == "space"
     then
-        return self.stateMachine:transitionTo("init")
-    else
-        return self
+        self.stateMachine:transitionTo("init")
     end
 end
 

@@ -35,11 +35,9 @@ function PlayState:update(game, dt)
         if isBall(fixtureA) and isGoal(fixtureB)
             or isGoal(fixtureA) and isBall(fixtureB)
         then
-            return self.stateMachine:transitionTo("gameover")
+            self.stateMachine:transitionTo("gameover")
         end
     end
-
-    return self
 end
 
 function PlayState:draw(game)
@@ -52,9 +50,7 @@ end
 function PlayState:keyreleased(game, key, scancode)
     if key == "space"
     then
-        return self.stateMachine:transitionTo("pause")
-    else
-        return self
+        self.stateMachine:transitionTo("pause")
     end
 end
 

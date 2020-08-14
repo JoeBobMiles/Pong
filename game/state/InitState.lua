@@ -68,7 +68,7 @@ function InitState:update(game, dt)
     -- consistent speed.
     game.world:update(0.017)
 
-    return self.stateMachine:transitionTo("play")
+    self.stateMachine:transitionTo("play")
 end
 
 function InitState:draw(game)
@@ -79,7 +79,7 @@ function InitState:draw(game)
 end
 
 function InitState:keyreleased(game, key, scancode)
-    return self
+    return
 end
 
 return InitState
