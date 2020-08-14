@@ -34,7 +34,7 @@ function Game:update(dt)
 end
 
 function Game:draw()
-    love.graphics.print(self.score, 0, 0)
+    love.graphics.print("Score:\t" .. self.score, 0, 0)
 
     self.stateMachine:draw(self)
 end
