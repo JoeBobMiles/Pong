@@ -32,8 +32,8 @@ function InitState:update(game, dt)
         window.width / 2, window.height / 2,
         5)
 
-    local initialForce = 1200
-    game.objects.ball.body:applyForce(initialForce, initialForce)
+    local initialVelocity = 256
+    game.objects.ball.body:setLinearVelocity(initialVelocity, initialVelocity)
 
     game.objects.player = Player:new(
         nil,
@@ -60,13 +60,6 @@ function InitState:update(game, dt)
         game.world,
         0, window.height,
         window.width, window.height)
-
-    -- HACK: When this function updates, the initial dt is incredibly small,
-    -- which means the force applied to the ball is applied over an incredibly
-    -- small period of time. By applying it over the (approximately) same amount
-    -- of time as the average mid-game frame, we get a ball that travels at a
-    -- consistent speed.
-    game.world:update(0.017)
 
     self.stateMachine:transitionTo("play")
 end
