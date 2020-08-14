@@ -40,8 +40,10 @@ function PlayState:update(game, dt)
             or isGoal(fixtureA) and isBall(fixtureB)
         then
             self.stateMachine:transitionTo("gameover") 
-        elseif isBall(fixtureA) and isPlayer(fixtureB)
-            or isPlayer(fixtureA) and isBall(fixtureB)
+        elseif
+            (isBall(fixtureA) and isPlayer(fixtureB)
+            or isPlayer(fixtureA) and isBall(fixtureB))
+            and contact:isTouching()
         then
             game.score = game.score + 1
         end
